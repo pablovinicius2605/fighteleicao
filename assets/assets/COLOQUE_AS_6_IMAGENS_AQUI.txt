@@ -1,0 +1,1 @@
+Coloque aqui as seis imagens. O site também procura os arquivos na raiz. Nomes-base: machado, mont, cass, gloe, 25 e 83. Aceita PNG, JPG, JPEG e WEBP.
