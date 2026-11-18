@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fight Club — Eleições</title>
+<style>
+:root{--bg:#0b1018;--panel:#151e2a;--line:#304052;--muted:#aab8c8;--gold:#f3c969;--red:#d92f3d;--blue:#1769c2;--green:#16834b}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#1b2b3c,#090d13 58%);color:#f5f7fa;font:16px/1.45 Arial,Helvetica,sans-serif}
+header{text-align:center;padding:28px 14px 14px;border-bottom:1px solid var(--line)}.kicker{font-size:.72rem;letter-spacing:.22em;color:var(--gold);font-weight:bold}h1{font-size:clamp(2rem,6vw,3.2rem);margin:7px 0}.sub{color:var(--muted);margin:0}
+nav{display:flex;gap:8px;max-width:1000px;margin:16px auto 0;padding:0 12px;overflow:auto}nav button{white-space:nowrap;background:#131c28;border:1px solid var(--line);color:#d5dfeb;border-radius:10px;padding:11px 15px;font-weight:bold;cursor:pointer}nav button.active{background:var(--gold);color:#17130a;border-color:var(--gold)}
+main{max-width:1000px;margin:24px auto;padding:0 14px 48px}.tab{display:none}.tab.active{display:block}.eyebrow{font-size:.73rem;color:var(--gold);letter-spacing:.15em;font-weight:bold;text-transform:uppercase}h2{margin:5px 0 12px;font-size:1.8rem}.muted{color:var(--muted)}
+.notice{border:1px solid #80672e;background:#302714;color:#ffe6a5;padding:13px 15px;border-radius:12px;margin:14px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}.card{background:linear-gradient(145deg,#1a2634,#111923);border:1px solid var(--line);border-radius:16px;padding:18px}.ticket{border-left:5px solid var(--accent)}.red{--accent:#f04450}.blue{--accent:#4298ff}.pill{display:inline-block;border:1px solid var(--line);padding:4px 9px;border-radius:30px;color:#d1dbe6;font-size:.75rem;font-weight:bold}.number{font-size:2.7rem;font-weight:900;color:var(--accent);margin:8px 0 0}.name{font-size:1.2rem;font-weight:bold}.small{color:var(--muted);font-size:.9rem}
+.machine-wrap{max-width:720px;margin:18px auto}.machine{background:#d8d8d4;color:#202326;border:9px solid #777b7d;border-radius:24px;padding:14px;box-shadow:0 20px 55px #0008}.machine-top{display:flex;justify-content:space-between;align-items:center;color:#303438;font-size:.76rem;font-weight:bold;letter-spacing:.08em;padding:0 4px 10px}.screen{background:#f1f0e9;border:5px solid #777;border-radius:5px;min-height:245px;padding:15px;color:#17191b;display:flex;flex-direction:column}.screen-title{text-align:center;font-weight:bold;font-size:.9rem;border-bottom:1px solid #bbb;padding-bottom:8px}.screen-body{display:grid;grid-template-columns:1fr 135px;gap:10px;flex:1;padding-top:12px}.screen-label{font-size:.82rem}.digits{display:flex;gap:5px;margin:10px 0}.digit{width:35px;height:44px;border:2px solid #252525;background:#fff;display:grid;place-items:center;font-size:1.65rem;font-weight:bold}.digit.empty{border-style:dashed}.candidate-photo{background:#e5e5df;border:1px solid #aaa;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;text-align:center;font-size:.68rem;color:#333;min-height:145px;padding:7px;gap:6px;overflow:hidden}.candidate-photo .ticket-logo{width:66px;height:48px;object-fit:contain}.candidate-photo .people{display:grid;grid-template-columns:1fr 1fr;gap:5px;width:100%}.candidate-photo .person{min-width:0}.candidate-photo .person img{width:100%;height:67px;object-fit:cover;border:1px solid #999;background:#ccc}.candidate-photo .person b{display:block;font-size:.65rem;line-height:1.2;overflow-wrap:anywhere}.candidate-photo .fallback{font-size:1.8rem;font-weight:900}.candidate-photo img{max-width:100%}.candidate-photo strong{font-size:2.5rem;display:block}.candidate-info{font-size:.82rem;line-height:1.6}.candidate-info b{font-size:1.1rem}.prompt{font-weight:bold;margin-top:auto;padding-top:10px;font-size:.82rem}.keypad-area{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:14px 4px 2px}.keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.key{background:#202326;color:white;border:0;border-radius:6px;padding:13px 5px;font-size:1.2rem;font-weight:bold;box-shadow:0 3px #050607;cursor:pointer}.key:active{transform:translateY(2px);box-shadow:0 1px #050607}.key.zero{grid-column:2}.actions{display:flex;flex-direction:column;gap:8px;justify-content:center}.act{border:0;border-radius:5px;padding:13px 9px;font-weight:900;cursor:pointer;color:#151515}.white{background:#f6f6f2}.correct{background:#f1bd43}.confirm{background:#35b86b}.act:disabled{opacity:.45;cursor:not-allowed}.machine-foot{text-align:center;color:#363a3c;font-size:.68rem;padding-top:12px}
+.choice{width:100%;text-align:left;background:#111a25;border:1px solid var(--line);color:#f4f7fa;padding:14px;border-radius:11px;margin:6px 0;cursor:pointer;font-weight:bold}.choice.selected{border:2px solid var(--gold);background:#2b271b}.choice small{display:block;color:var(--muted);font-weight:normal}.action{border:0;background:var(--gold);color:#17130a;border-radius:10px;padding:12px 16px;font-weight:900;cursor:pointer}.action:disabled{opacity:.45;cursor:not-allowed}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:15px 0}.stat{background:#0d141e;border:1px solid var(--line);padding:12px;border-radius:12px;text-align:center}.stat strong{display:block;font-size:1.7rem}.bar{height:13px;border-radius:99px;background:#293546;overflow:hidden;margin:7px 0 14px}.bar span{display:block;height:100%;width:0;background:var(--gold);transition:width .3s}.rowline{display:flex;justify-content:space-between;gap:12px;font-weight:bold}.story{border-left:3px solid var(--gold);padding-left:15px;margin:20px 0}table{width:100%;border-collapse:collapse}td,th{text-align:left;padding:11px 6px;border-bottom:1px solid var(--line)}th{color:var(--muted);font-size:.8rem}.right{text-align:right}.status{font-size:.82rem;margin-top:10px;color:var(--muted)}footer{text-align:center;color:#78889b;padding:20px;border-top:1px solid var(--line);font-size:.8rem}
+@media(max-width:560px){.screen-body{grid-template-columns:1fr 100px}.candidate-photo{min-height:95px}.keypad-area{grid-template-columns:1fr 1fr;gap:9px}.key{padding:12px 3px}.stats{grid-template-columns:1fr 1fr}.screen{padding:10px}.digit{width:30px}}
+</style>
+</head>
+<body>
+<header><div class="kicker">ELEIÇÕES • FIGHT CLUB</div><h1>A disputa pelo comando</h1><p class="sub">Segundo turno — Cariacica x Sulista</p>
+<nav><button class="active" data-tab="urna">Urna — Simulação</button><button data-tab="pesquisa">Fight Pesquisa</button><button data-tab="primeiro">Primeiro Turno</button></nav></header>
+<main>
+<section id="urna" class="tab active">
+<div class="eyebrow">Primeira aba</div><h2>Urna eletrônica — Simulação</h2>
+<div class="notice"><b>ELEIÇÃO OFICIAL NA SEXTA-FEIRA.</b> Esta é apenas uma simulação. Os números digitados aqui não são contabilizados e não alteram a pesquisa.</div>
+<div class="grid">
+<div class="card ticket red"><span class="pill">CHAPA CARIACICA</span><div class="number">25</div><div class="name">Machado</div><div class="small">Presidente • Mont, Vice</div></div>
+<div class="card ticket blue"><span class="pill">CHAPA SULISTA</span><div class="number">83</div><div class="name">Cass</div><div class="small">Presidente • Gloe, Vice</div></div>
+</div>
+<div class="machine-wrap"><div class="machine">
+<div class="machine-top"><span>JUSTIÇA ELEITORAL • SIMULADOR</span><span>FIGHT CLUB</span></div>
+<div class="screen">
+<div class="screen-title">SEU VOTO PARA PRESIDENTE</div>
+<div class="screen-body"><div><div class="screen-label">Digite o número da chapa:</div><div class="digits"><span class="digit" id="d1"></span><span class="digit" id="d2"></span></div><div class="candidate-info" id="candidateInfo">Aguardando digitação…</div><div class="prompt" id="prompt">Digite os dois números da chapa.</div></div><div class="candidate-photo" id="candidatePhoto"><span>FOTO DA CHAPA</span><span class="fallback">FC</span></div></div>
+</div>
+<div class="keypad-area"><div class="keypad">
+<button class="key" data-key="1">1</button><button class="key" data-key="2">2</button><button class="key" data-key="3">3</button><button class="key" data-key="4">4</button><button class="key" data-key="5">5</button><button class="key" data-key="6">6</button><button class="key" data-key="7">7</button><button class="key" data-key="8">8</button><button class="key" data-key="9">9</button><button class="key zero" data-key="0">0</button>
+</div><div class="actions"><button class="act white" id="blank">BRANCO</button><button class="act correct" id="correct">CORRIGE</button><button class="act confirm" id="confirm" disabled>CONFIRMA</button></div></div>
+<div class="machine-foot">SIMULAÇÃO SEM REGISTRO DE VOTO • TECLADO ILUSTRATIVO</div>
+</div><div class="status" id="machineStatus" aria-live="polite">Digite 25, 83 ou qualquer outro número para visualizar voto nulo.</div></div>
+</section>
+<section id="pesquisa" class="tab">
+<div class="eyebrow">Segunda aba</div><h2>Fight Pesquisa</h2><p class="muted">Intenção de voto para o segundo turno.</p>
+<div class="notice"><b>Pesquisa aberta:</b> escolha uma opção. Os totais públicos serão atualizados automaticamente quando o site estiver conectado ao banco de dados.</div>
+<div class="card"><h3>Em quem está sua intenção de voto?</h3>
+<div id="pollChoices"><button class="choice" data-poll="25">🔴 Chapa 25 — Machado / Mont<small>Cariacica</small></button><button class="choice" data-poll="83">🔵 Chapa 83 — Cass / Gloe<small>Sulista</small></button><button class="choice" data-poll="nulo">Voto nulo</button></div>
+<button class="action" id="submitPoll" disabled>Registrar intenção</button><div id="pollMessage" class="status" aria-live="polite">Selecione uma opção.</div>
+</div>
+<div class="card" style="margin-top:14px"><div class="rowline"><h3 style="margin:0">Resultado da pesquisa</h3><span class="pill" id="liveStatus">DEMO LOCAL</span></div>
+<div class="stats"><div class="stat"><strong id="totalVotes">0</strong><span class="small">Respostas</span></div><div class="stat"><strong id="pct25">0%</strong><span class="small">Chapa 25</span></div><div class="stat"><strong id="pct83">0%</strong><span class="small">Chapa 83</span></div></div>
+<div class="rowline"><span>🔴 Machado / Mont</span><span id="count25">0</span></div><div class="bar"><span id="bar25" style="background:#e3424f"></span></div>
+<div class="rowline"><span>🔵 Cass / Gloe</span><span id="count83">0</span></div><div class="bar"><span id="bar83" style="background:#3487f5"></span></div>
+<div class="rowline"><span>Votos nulos</span><span id="countNulo">0</span></div><div class="bar"><span id="barNulo" style="background:#9ba5b2"></span></div>
+<p class="status" id="syncStatus">Modo demonstração: respostas salvas somente neste navegador.</p></div>
+</section>
+<section id="primeiro" class="tab">
+<div class="eyebrow">Terceira aba</div><h2>Primeiro Turno</h2><div class="card"><table><thead><tr><th>Posição</th><th>Chapa</th><th class="right">Votos</th></tr></thead><tbody>
+<tr><td>1º</td><td><b>25 — Machado Presidente</b><br><span class="small">Vice: Mont</span></td><td class="right"><b>5</b></td></tr>
+<tr><td>1º</td><td><b>83 — Cass Presidente</b><br><span class="small">Vice: Gloe</span></td><td class="right"><b>5</b></td></tr>
+<tr><td>3º</td><td><b>19 — Kappler Presidente</b><br><span class="small">Vice: Ace</span></td><td class="right"><b>4</b></td></tr></tbody></table><p class="small">Empate na liderança: chapas 25 e 83 terminaram com cinco votos cada.</p></div>
+<div class="story"><div class="eyebrow">Segundo turno</div><h3>Uma final definida nos detalhes</h3><p>A dupla da Chapa Sulista consegue um primeiro turno histórico e vai para o segundo turno. Já Machado vira votos na reta final e também chega à decisão, buscando a reeleição.</p></div>
+<div class="grid"><div class="card ticket red"><span class="pill">FINALISTA</span><div class="name">Chapa Cariacica</div><b>25 • Machado / Mont</b></div><div class="card ticket blue"><span class="pill">FINALISTA</span><div class="name">Chapa Sulista</div><b>83 • Cass / Gloe</b></div></div>
+</section>
+</main><footer>FIGHT CLUB • Eleições internas • Urna demonstrativa</footer>
+<script>
+// Configure a URL e a chave pública (anon key) do seu projeto Supabase após executar o arquivo SQL de configuração.
+const SUPABASE_URL = "COLE_A_URL_DO_SEU_PROJETO";
+const SUPABASE_ANON_KEY = "COLE_A_CHAVE_ANON_PUBLICA";
+const configured = SUPABASE_URL.startsWith("https://") && !SUPABASE_URL.includes("COLE_A_") && !SUPABASE_ANON_KEY.includes("COLE_A_");
+const $=id=>document.getElementById(id);
+document.querySelectorAll('nav button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x.id===b.dataset.tab));if(b.dataset.tab==='pesquisa')loadPoll();}));
+let digits='', special=null;
+// Procura as imagens em assets/, Assets/ ou na raiz do repositório.
+// Também aceita extensões PNG, JPG, JPEG e WEBP e variações de maiúsculas.
+function tryNextImage(img){
+ const base=img.dataset.file;
+ const extensions=['png','jpg','jpeg','webp','PNG','JPG','JPEG','WEBP'];
+ const folders=['assets/','Assets/','ASSETS/',''];
+ const candidates=[];
+ folders.forEach(folder=>extensions.forEach(ext=>candidates.push(folder+base+'.'+ext)));
+ let index=Number(img.dataset.tryIndex||0)+1;
+ if(index<candidates.length){img.dataset.tryIndex=String(index);img.src=candidates[index];}
+ else{img.onerror=null;img.style.display='none';}
+}
+function imageTag(file,alt,cssClass=''){
+ const cls=cssClass?` class="${cssClass}"`:'';
+ return `<img${cls} data-file="${file}" data-try-index="0" src="assets/${file}.png" alt="${alt}" onerror="tryNextImage(this)">`;
+}
+function renderBallot(){
+ $('d1').textContent=digits[0]||'';$('d2').textContent=digits[1]||'';
+ const valid=digits.length===2&&(digits==='25'||digits==='83');
+ const invalid=digits.length===2&&digits!=='25'&&digits!=='83';
+ $('confirm').disabled=!(valid||invalid||special);
+ $('candidateInfo').innerHTML='';$('candidatePhoto').innerHTML='FOTO<br>DA CHAPA';
+ if(digits==='25'){
+  $('candidateInfo').innerHTML='<b>MACHADO</b><br>Presidente<br><b>MONT</b><br>Vice-presidente';
+  $('candidatePhoto').innerHTML=imageTag('25','Logo da Chapa 25','ticket-logo')+'<div class="people"><div class="person">'+imageTag('machado','Foto de Machado')+'<b>MACHADO</b></div><div class="person">'+imageTag('mont','Foto de Mont')+'<b>MONT</b></div></div><small>CHAPA CARIACICA • 25</small>';
+ }
+ else if(digits==='83'){
+  $('candidateInfo').innerHTML='<b>CASS</b><br>Presidente<br><b>GLOE</b><br>Vice-presidente';
+  $('candidatePhoto').innerHTML=imageTag('83','Logo da Chapa 83','ticket-logo')+'<div class="people"><div class="person">'+imageTag('cass','Foto de Cass')+'<b>CASS</b></div><div class="person">'+imageTag('gloe','Foto de Gloe')+'<b>GLOE</b></div></div><small>CHAPA SULISTA • 83</small>';
+ }
+ else if(invalid){$('candidateInfo').innerHTML='<b>VOTO NULO</b><br>Número inexistente';$('candidatePhoto').innerHTML='<span class="fallback">✕</span><b>NULO</b>';}
+ $('prompt').textContent=special==='branco'?'VOTO EM BRANCO':special==='nulo'?'VOTO NULO':valid?'Confira seu voto e pressione CONFIRMA.':invalid?'Número inválido: voto nulo.':'Digite os dois números da chapa.';
+}
+document.querySelectorAll('[data-key]').forEach(b=>b.addEventListener('click',()=>{if(digits.length<2){special=null;digits+=b.dataset.key;renderBallot();}}));
+$('correct').addEventListener('click',()=>{digits='';special=null;renderBallot();$('machineStatus').textContent='Digite novamente o número da chapa.';});
+$('blank').addEventListener('click',()=>{digits='';special='branco';renderBallot();});
+$('confirm').addEventListener('click',()=>{const result=special==='branco'?'BRANCO':special==='nulo'||(digits.length===2&&digits!=='25'&&digits!=='83')?'NULO':digits==='25'?'Chapa 25 — Machado / Mont':'Chapa 83 — Cass / Gloe';$('machineStatus').textContent='SIMULAÇÃO CONFIRMADA: '+result+'. Nenhum voto foi contabilizado.';digits='';special=null;renderBallot();});
+renderBallot();
+
+// Pesquisa: com Supabase configurado, usa login anônimo, grava uma resposta por usuário autenticado,
+// consulta somente totais agregados e atualiza o placar por polling periódico (sem expor votos individuais).
+let selected=null, supa=null, pollTimer=null;
+const localKey='fc_poll_demo_v2';
+document.querySelectorAll('[data-poll]').forEach(b=>b.addEventListener('click',()=>{selected=b.dataset.poll;document.querySelectorAll('[data-poll]').forEach(x=>x.classList.toggle('selected',x===b));$('submitPoll').disabled=false;}));
+function paint(c){const a=Number(c['25']||0),b=Number(c['83']||0),n=Number(c.nulo||0),t=a+b+n;const pct=x=>t?Math.round(x/t*100):0;
+$('totalVotes').textContent=t;$('count25').textContent=a;$('count83').textContent=b;$('countNulo').textContent=n;$('pct25').textContent=pct(a)+'%';$('pct83').textContent=pct(b)+'%';$('bar25').style.width=pct(a)+'%';$('bar83').style.width=pct(b)+'%';$('barNulo').style.width=pct(n)+'%';}
+function localCounts(){try{return JSON.parse(localStorage.getItem(localKey+'_counts')||'{}')}catch{return {}}}
+function loadLocal(){const c=localCounts();paint(c);$('liveStatus').textContent='DEMO LOCAL';$('syncStatus').textContent='Modo demonstração: os dados existem apenas neste navegador e não são compartilhados.';if(localStorage.getItem(localKey)){$('pollMessage').textContent='Sua resposta já foi registrada neste navegador.';$('submitPoll').disabled=true;document.querySelectorAll('[data-poll]').forEach(x=>x.disabled=true);}}
+async function initCloud(){if(!configured){loadLocal();return;}
+ try{
+  const {createClient}=await import('https://esm.sh/@supabase/supabase-js@2');
+  supa=createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+  const {data:{user}}=await supa.auth.getUser();
+  if(!user){const {error}=await supa.auth.signInAnonymously();if(error)throw error;}
+  $('liveStatus').textContent='ONLINE';$('syncStatus').textContent='Conectado. Placar agregado atualiza automaticamente.';
+  const {data:mine,error:mineErr}=await supa.rpc('fc_has_voted');
+  if(mineErr)throw mineErr;
+  if(mine===true){$('pollMessage').textContent='Sua resposta já foi registrada. Obrigado por participar.';$('submitPoll').disabled=true;document.querySelectorAll('[data-poll]').forEach(x=>x.disabled=true);}
+  await loadPoll();if(pollTimer)clearInterval(pollTimer);pollTimer=setInterval(loadPoll,3000);
+ }catch(e){$('syncStatus').textContent='Não foi possível conectar ao banco: '+e.message;loadLocal();}
+}
+async function loadPoll(){if(!configured||!supa){loadLocal();return;}try{const {data,error}=await supa.rpc('fc_poll_totals');if(error)throw error;const obj=Array.isArray(data)?data[0]:data;paint(obj||{});$('liveStatus').textContent='ONLINE';}catch(e){$('syncStatus').textContent='Falha ao atualizar pesquisa: '+e.message;}}
+$('submitPoll').addEventListener('click',async()=>{if(!selected)return;
+ if(!configured){if(localStorage.getItem(localKey))return;localStorage.setItem(localKey,selected);const c=localCounts();c[selected]=(c[selected]||0)+1;localStorage.setItem(localKey+'_counts',JSON.stringify(c));$('pollMessage').textContent='Resposta registrada neste navegador (modo demonstração).';$('submitPoll').disabled=true;document.querySelectorAll('[data-poll]').forEach(x=>x.disabled=true);loadLocal();return;}
+ $('submitPoll').disabled=true;$('pollMessage').textContent='Registrando…';
+ try{const {error}=await supa.from('fc_poll_receipts').insert({choice:selected});if(error)throw error;$('pollMessage').textContent='Intenção registrada! Obrigado por participar.';document.querySelectorAll('[data-poll]').forEach(x=>x.disabled=true);await loadPoll();}
+ catch(e){$('pollMessage').textContent=e.code==='23505'?'Você já enviou sua resposta.':'Não foi possível registrar: '+e.message;$('submitPoll').disabled=false;}
+});
+initCloud();
+</script>
+</body></html>
